@@ -1,0 +1,40 @@
+#container{
+    width: 60%;
+}
+
+#text{
+    color: grey;
+}
+
+#tagsContainer{
+    min-height: 40px;
+    background-color: #181818;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 3px;
+    flex-wrap: wrap;
+    padding: 0 5px;
+    border-radius: 1px solid #85858555;
+}
+
+#tag{
+    height: 30px;
+    background-color: #212121;
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+    border-radius: 1px solid #85858555;
+    gap: 5px;
+}
+
+#tagsInput{
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    width: 100%;
+}
+
+#icon{
+    cursor: pointer;
+}

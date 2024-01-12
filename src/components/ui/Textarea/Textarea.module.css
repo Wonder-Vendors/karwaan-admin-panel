@@ -1,0 +1,25 @@
+#container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#textarea{
+    height: 80px;
+    padding: 5px;
+    background: none;
+    border: var(--border);
+    outline: none;
+    border-radius: 3px;
+    color: white;
+}
+
+#textarea:focus{
+    border: 1px solid #007bff;
+    color: #007bff;
+    font-weight: 500;
+}
+
+#text{
+    color: grey;
+}
