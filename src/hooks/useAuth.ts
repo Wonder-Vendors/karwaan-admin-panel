@@ -19,6 +19,8 @@ export const useAuth = ({firstName, lastName, email, password}: useAuthProps) =>
 
     const handleSignup = async (e: any) => {
         e.preventDefault();
+
+        
         const payload = {
             firstName: firstName,
             lastName: lastName,
@@ -40,10 +42,14 @@ export const useAuth = ({firstName, lastName, email, password}: useAuthProps) =>
             if(response.status === "success"){
                 toast.success(response.message);
                 router.push('/');
-                localStorage.setItem('user', JSON.stringify(response.data.user));
-                localStorage.setItem('token', response.data.token);
+                if(typeof(window) !== "undefined"){
+                    localStorage.setItem('user', JSON.stringify(response.data.user));
+                    localStorage.setItem('token', response.data.token);
+                }
                 return dispatch(signup_success({...response.data}));
             }
+
+            return;
         } catch (error:any) {
             if(axios.isAxiosError(error)){
                 return toast.error(error.response?.data.message);
@@ -76,8 +82,10 @@ export const useAuth = ({firstName, lastName, email, password}: useAuthProps) =>
             if(response.status === "success"){
                 toast.success(response.message);
                 router.push('/');
-                localStorage.setItem('user', JSON.stringify(response.data.user));
-                localStorage.setItem('token', response.data.token);
+                if(typeof(window) !== "undefined"){
+                    localStorage.setItem('user', JSON.stringify(response.data.user));
+                    localStorage.setItem('token', response.data.token);
+                }
                 return dispatch(signin_success({...response.data}));
             }
         } catch (error: any) {

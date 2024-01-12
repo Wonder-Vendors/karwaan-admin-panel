@@ -13,6 +13,10 @@ import { useProduct } from '@/hooks/useProducts';
 const AddProduct = () => {
     const formdata = new FormData();
     const [tag, setTag] = useState('');
+
+    if(typeof(window) !== "undefined"){
+        var user = JSON.parse(localStorage.getItem('user')!)
+      }
     
     const [payload, setPayload] = useState<{ file: any, name: string, price: number | null, tags: string[], description: string, userId: string | null }>({
         file: null,
@@ -20,7 +24,7 @@ const AddProduct = () => {
         price: null,
         tags: [],
         description: '',
-        userId: JSON.parse(localStorage?.getItem('user')!)._id || null,
+        userId: user._id || null,
     });
 
     formdata.append('file', payload.file);

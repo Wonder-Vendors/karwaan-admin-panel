@@ -8,7 +8,9 @@ import { useLottie } from 'lottie-react'
 // import OrderChart from '@/components/ui/charts/OrderChart/OrderChart'
 
 const page = () => {
-  const user = JSON.parse(localStorage.getItem('user')!)
+  if(typeof(window) !== "undefined"){
+    var user = JSON.parse(localStorage.getItem('user')!)
+  }
 
   const options = {
     animationData: animation,

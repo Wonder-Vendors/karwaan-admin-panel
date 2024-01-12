@@ -16,9 +16,11 @@ export const useProduct = (payload: FormData) => {
     const router = useRouter();
     const addProduct = async(e: any) => {
         e.preventDefault();
-
-        const token = localStorage.getItem('token')!
+        
         try {
+            if(typeof(window) !== "undefined"){
+                var token = JSON.parse(localStorage.getItem('token')!)
+            }
             const {postCall} = useAxios('/admin/create-product', payload, token);
             const response = await postCall();
             
