@@ -7,9 +7,10 @@ type Props = {
     text: string;
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
     name?: string;
+    value?: any
 };
 
-const Input = ({ type, text, onChange, name }: Props) => {
+const Input = ({ type, text, onChange, name, value }: Props) => {
     const [toggle, setToggle] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -17,7 +18,7 @@ const Input = ({ type, text, onChange, name }: Props) => {
         return (
             <label htmlFor={name} id={styles.container}>
                 <span id={styles.text}>{text}</span>
-                <input type={type} name={name} id={styles.input} onChange={onChange} />
+                <input type={type} name={name} id={styles.input} onChange={onChange} value={value}/>
             </label>
         );
     }
@@ -26,7 +27,7 @@ const Input = ({ type, text, onChange, name }: Props) => {
         return (
             <label htmlFor={name} id={styles.container}>
                 <span id={styles.text}>{text}</span>
-                <input type={toggle ? 'text' : 'password'} name={name} id={styles.input} onChange={onChange} />
+                <input type={toggle ? 'text' : 'password'} name={name} id={styles.input} onChange={onChange} value={value}/>
                 <label htmlFor="checkbox" id={styles.wrapper}>
                     <span>Show password</span>
                     <input type="checkbox" onChange={() => setToggle(!toggle)} />
@@ -67,6 +68,7 @@ const Input = ({ type, text, onChange, name }: Props) => {
                     onChange={handleFileChange}
                     hidden
                     ref={fileInputRef}
+                    value={value}
                 />
                 {type === 'file' && fileName && <span>Uploaded file: {fileName}</span>}
                 <Button text="Upload a file" type="button" onClick={handleButtonClick} theme='default' />

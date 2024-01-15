@@ -7,10 +7,17 @@ import React, { useEffect, useState } from 'react'
 import styles from './page.module.css'
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { locallyStoredVariables } from '@/constants/locallyStoredVariables';
 
 const page = () => {
     const {productId} = useParams();
     const router = useRouter();
+    const {user} = locallyStoredVariables();
+    if(!user){
+        router.push('/signin')
+        return;
+    }
+
     const [product, setProduct] = useState<any>(null);
     useEffect(() => {
         const getProductDetails = async () => {
@@ -31,8 +38,6 @@ const page = () => {
         getProductDetails();
     }, []);
 
-    console.log(product)
-
     if(product){
         return (
             <div id={styles.container}>
@@ -41,8 +46,8 @@ const page = () => {
                 </div>
                 <div id={styles.right}>
                     <div id={styles.top}>
-                        <Button theme='default' type='button' onClick={() => router.push(`/update-product/${productId}`)} text='Update Product'/>
-                        <Button theme='danger' type='button' onClick={() => router.push(`/update-product/${productId}`)} text='Delete Product'/>
+                        <Button theme='default' type='button' onClick={() => router.push(`/products/${productId}/update`)} text='Update Product'/>
+                        <Button theme='danger' type='button' onClick={() => router.push(`/products/${productId}/delete`)} text='Delete Product'/>
                     </div>
                     <div id={styles.bottom}>
                         <span id={styles.name}>{product?.name}</span>

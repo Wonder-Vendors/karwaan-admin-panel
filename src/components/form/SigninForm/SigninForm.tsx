@@ -16,7 +16,7 @@ const SigninForm = () => {
   return (
     <Form onSubmit={handleSignin}>
         <Input type='text' onChange={(e) => {setPayload({...payload, email: e.target.value})}} text='Please enter your email.' name='email'/>
-        <Input type='text' onChange={(e) => {setPayload({...payload, password: e.target.value})}} text='Please create a password.' name='password'/>
+        <Input type='password' onChange={(e) => {setPayload({...payload, password: e.target.value})}} text='Please create a password.' name='password'/>
         <Button type='submit' text='Sign up' theme='default'/>
     </Form>
   )

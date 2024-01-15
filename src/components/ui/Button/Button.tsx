@@ -10,7 +10,7 @@ type Props = {
 }
 
 const Button = ({type, text, onClick, theme, loading}: Props) => {
-  return <button type={type} onClick={onClick} style={{backgroundColor: theme === "default" ? "#007bff" : "tomato"}} id={styles.button}>{text}</button>
+  return <button type={type} onClick={onClick} style={{backgroundColor: theme === "default" ? "#007bff" : "tomato"}} id={styles.button} disabled={loading}>{text}</button>
 }
 
 export default Button;

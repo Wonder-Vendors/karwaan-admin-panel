@@ -2,31 +2,27 @@ import toast from "react-hot-toast";
 import { useAxios } from "./useAxios";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { locallyStoredVariables } from "@/constants/locallyStoredVariables";
+import { useEffect, useState } from "react";
 
-type Props = {
-    file: any;
-    name: string;
-    price: number | null;
-    tags: string[];
-    description: string;
-    userId: string | null | undefined;
+type Params = {
+    formdata?: FormData,
+    productId?: string
 }
 
-export const useProduct = (payload: FormData) => {
+export const useProduct = (payload: Params) => {
     const router = useRouter();
     const addProduct = async(e: any) => {
         e.preventDefault();
         
         try {
-            if(typeof(window) !== "undefined"){
-                var token = JSON.parse(localStorage.getItem('token')!)
-            }
+            const {token} = locallyStoredVariables();
             const {postCall} = useAxios('/admin/create-product', payload, token);
             const response = await postCall();
             
             if(response.status === "success"){
                 toast.success(response.message);
-                // router.push(`/products/${response.data.product_data._id}`);
+                router.push(`/products/${response.data.product_data._id}`);
             }
 
         } catch (error: any) {
@@ -36,6 +32,30 @@ export const useProduct = (payload: FormData) => {
 
             toast.error(error.message);
         }
+    }
+
+    const handleGetProduct = () => {
+        const {productId} = payload;
+        const [response, setResponse] = useState<any>(undefined);
+        useEffect(() => {
+            const getProductDetails = async () => {
+                try {
+                    const { getCall } = useAxios(`/product/${productId}`);
+                    const res = await getCall();
+                    setResponse(res.data);
+                } catch (error: any) {
+                    if (axios.isAxiosError(error)) {
+                        toast.error(error.response?.data.message);
+                    }
+    
+                    toast.error(error.message);
+                }
+            }
+    
+            getProductDetails();
+        }, [productId]);
+
+        return response;
     }
 
     return {addProduct}
