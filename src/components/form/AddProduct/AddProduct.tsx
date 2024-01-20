@@ -84,7 +84,7 @@ const AddProduct = () => {
                     })}
                 </div>
                 <div id={styles.tagsInput}>
-                    <Input type='text' text='Enter a tag and press the add tag button' onChange={(e) => setTag(e.target.value)} name='tags' />
+                    <Input type='text' text='Enter a tag and press the add tag button' onChange={(e) => setTag(e.target.value)} name='tags' value={tag} />
                     <Button type='button' text='Add tag' onClick={() => {
                         if(tag === ''){
                             return toast.error(`Cannot add an empty tag`);

@@ -3,15 +3,24 @@ import { useAxios } from "./useAxios";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { locallyStoredVariables } from "@/constants/locallyStoredVariables";
-import { useEffect, useState } from "react";
-
+import { useState } from "react";
+type payloadType = {
+    file: any,
+    name: string,
+    price: any,
+    tags: string[],
+    description: string,
+    userId: string | null
+}
 type Params = {
+    payload?: payloadType,
     formdata?: FormData,
     productId?: string
 }
 
 export const useProduct = (payload: Params) => {
     const router = useRouter();
+    // add product 
     const addProduct = async(e: any) => {
         e.preventDefault();
         
@@ -33,30 +42,89 @@ export const useProduct = (payload: Params) => {
             toast.error(error.message);
         }
     }
-
-    const handleGetProduct = () => {
+    // update product 
+    const updateProduct = async(e: any) => {
+        e.preventDefault();
         const {productId} = payload;
-        const [response, setResponse] = useState<any>(undefined);
-        useEffect(() => {
-            const getProductDetails = async () => {
-                try {
-                    const { getCall } = useAxios(`/product/${productId}`);
-                    const res = await getCall();
-                    setResponse(res.data);
-                } catch (error: any) {
-                    if (axios.isAxiosError(error)) {
-                        toast.error(error.response?.data.message);
-                    }
-    
-                    toast.error(error.message);
-                }
+        
+        try {
+            const {token} = locallyStoredVariables();
+            const {postCall} = useAxios(`/admin/update-product/${productId}`, payload, token);
+            const response = await postCall();
+            
+            if(response.status === "success"){
+                toast.success(response.message);
             }
-    
-            getProductDetails();
-        }, [productId]);
 
-        return response;
+        } catch (error: any) {
+             if(axios.isAxiosError(error)){
+                return toast.error(error.response?.data.message);
+            }
+
+            toast.error(error.message);
+        }
     }
 
-    return {addProduct}
+     // handle Get Product
+     const handleGetProduct = async () => {
+        // dispatch(getUser_request());
+        const {productId} = payload;
+        try {
+            const { getCall } = useAxios(`/product/${productId}`);
+      
+            const result = await getCall();
+            if (result.status === "success") {
+                // dispatch(getUser_success());
+                // dispatch(update_user_data(response.data.user));
+                return result.data;
+            }
+
+        } catch (error: any) {
+            // dispatch(getUser_failure(error.message));
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data.message);
+                // dispatch(getUser_failure(error.response?.data.message));
+
+                if (error.response?.status === 403) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
+                    }
+                    if (localStorage.getItem('cartItems')) {
+                        localStorage.removeItem("cartItems");
+                    }
+                    router.push('/signup');
+                }
+            }
+        }
+    }
+ 
+
+     // handle Delete Product
+     const deleteProduct = async(e: any) => {
+        e.preventDefault();
+        const {productId} = payload;
+        
+        try {
+            const {token,user} = locallyStoredVariables();
+            const {deleteCall} = useAxios(`/admin/delete-product/${productId}`, {...payload,...user,userId:user?._id}, token);
+            const response = await deleteCall();
+            
+            if(response.status === "success"){
+                toast.success(response.message);
+                router.push('/products');
+            }
+
+        } catch (error: any) {
+             if(axios.isAxiosError(error)){
+                return toast.error(error.response?.data.message);
+            }
+
+            toast.error(error.message);
+        }
+    }
+ 
+
+    
+
+    return {addProduct,updateProduct, handleGetProduct, deleteProduct}
 }

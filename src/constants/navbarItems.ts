@@ -16,11 +16,11 @@ export const navbarItems: { name: string, route: string}[] = [
         route: '/customers',
     },
     {
-        name: '',
-        route: '/add-product',
+        name: 'Admins',
+        route: '/admins',
     },
-    {
-        name: 'Add Product',
-        route: '/add-product',
-    },
+    // {
+    //     name: 'Add Product',
+    //     route: '/add-product',
+    // },
 ]

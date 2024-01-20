@@ -1,0 +1,15 @@
+#container{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#heading{
+    font-size: xx-large;
+    font-weight: 700;
+}
+
+#text{
+    color: grey;
+}
