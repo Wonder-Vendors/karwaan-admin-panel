@@ -1,0 +1,15 @@
+.searchContainer {
+    display: flex;
+    align-items:flex-start;
+  }
+  .label:hover{
+    cursor: pointer;
+  }
+  .label {
+    margin-right: 10px;
+  }
+  
+  .input {
+    padding: 8px;
+    font-size: 16px;
+  }

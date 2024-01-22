@@ -6,17 +6,27 @@ import { usePathname, useRouter } from 'next/navigation';
 interface GetUserProps {
   role: 'admin'|'user'|'customer';
 }
-const GetUser: FC<GetUserProps> = ({ role }) => {
+import SearchComponent from '@/components/shared/searchBar/Search';
 
-    const {handleGetUsers}=useUsers({role:role});
+const GetUser: FC<GetUserProps> = ({ role }) => {
+   const {handleGetUsers}=useUsers({role:role});
     const [response,setResponse]=useState<any>(null);
+  const [filteredData, setFilteredData] = useState<any>([]);
+
+  // const allData = ["Item 1", "Item 2", "Item 3", /* ... */];
+  
+  const handleSearch = (filteredData: any) => {
+    setFilteredData(filteredData);
+  };
+  
+   
     useEffect(()=>{
     ( async()=>{
        const data=await handleGetUsers();
        setResponse(data);
+    setFilteredData(data);
     })();
     },[]);
-    console.log("response kya aya",response);
     // // date that user created an account
     // const createData=data.createdAt
     const router=useRouter();
@@ -29,11 +39,14 @@ const GetUser: FC<GetUserProps> = ({ role }) => {
         router.push(`/users/${data._id}`);
       } 
      }
+     console.log(filteredData,"res")
   return (
+    <div id={styles.container}>
+    <span id={styles.heading}>{role} details  <SearchComponent data={response} onSearch={handleSearch} /></span>
     <div className={styles.getUser}>
      {
-       Array.isArray(response)?response.length?
-            response.map((data:any)=>{
+       Array.isArray(filteredData)?filteredData.length?
+       filteredData.map((data:any)=>{
        return(
            <div className={styles.userCard} key={data._id} onClick={()=>handleClick(data)}>
            <img src='/user.png' className={styles.userAvtar} alt='not found'/>
@@ -53,6 +66,7 @@ const GetUser: FC<GetUserProps> = ({ role }) => {
         <div>loading</div>
     </div>
      }
+    </div>
     </div>
   );
 };

@@ -39,18 +39,13 @@ function page() {
         phoneNumber: string,
         isEmailValid:boolean,
         isPhoneNumberValid:boolean,
-    }
-
-    const [modalOpen, setModalOpen] = useState<any>(false);
-  
-
-    // delete open and close logic
+    } 
 
     return (
 
         <div className={styles.myAccountContainer} >
             <h1 className={styles.heading}>{formData?formData.firstName:("User")}'s Account</h1>
-            <div className={styles.myAccount} style={modalOpen ? { filter: "blur(3px)", height: "100svh" } : { background: "black" }} onClick={() => (modalOpen ? close() : "")}>
+            <div className={styles.myAccount}>
                 {/*  fields */}
                     <div className={styles.info}> <div className={styles.infoType}>User Id: </div>{formData?formData._id:""}</div>
                     <div className={styles.info}> <div className={styles.infoType}>First Name: </div>{formData?formData.firstName:""}</div>

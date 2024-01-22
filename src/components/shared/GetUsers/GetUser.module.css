@@ -1,3 +1,22 @@
+#container{
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#heading{
+    font-size: xx-large;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#text{
+    color: grey;
+}
 .userCard{
     background:#85858555;
     height: 150px;

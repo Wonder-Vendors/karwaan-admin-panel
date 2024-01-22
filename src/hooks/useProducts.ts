@@ -98,7 +98,73 @@ export const useProduct = (payload: Params) => {
         }
     }
  
+    
+     // handle top Products
+     const handleGetTopProduct = async () => {
+        // dispatch(getUser_request());
+        const {token} = locallyStoredVariables();
+        try {
+            const { getCall } = useAxios(`/admin/get-top-products`,null,token);
+            const result = await getCall();
+            if (result.status === "success") {
+                // dispatch(getUser_success());
+                // dispatch(update_user_data(response.data.user));
+                console.log("top product data", result.data)
+                return result.data;
+            }
 
+        } catch (error: any) {
+            // dispatch(getUser_failure(error.message));
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data.message);
+                // dispatch(getUser_failure(error.response?.data.message));
+
+                if (error.response?.status === 403) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
+                    }
+                    if (localStorage.getItem('cartItems')) {
+                        localStorage.removeItem("cartItems");
+                    }
+                    router.push('/signup');
+                }
+            }
+        }
+    }
+     // handle worst Products
+     const handleGetWorstProduct = async () => {
+        // dispatch(getUser_request());
+        const {token} = locallyStoredVariables();
+        try {
+            const { getCall } = useAxios(`/admin/get-top-products`,null,token);
+            const result = await getCall();
+            if (result.status === "success") {
+                // dispatch(getUser_success());
+                // dispatch(update_user_data(response.data.user));
+                console.log("top product data", result.data)
+                return result.data;
+            }
+
+        } catch (error: any) {
+            // dispatch(getUser_failure(error.message));
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data.message);
+                // dispatch(getUser_failure(error.response?.data.message));
+
+                if (error.response?.status === 403) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
+                    }
+                    if (localStorage.getItem('cartItems')) {
+                        localStorage.removeItem("cartItems");
+                    }
+                    router.push('/signup');
+                }
+            }
+        }
+    }
+ 
+    
      // handle Delete Product
      const deleteProduct = async(e: any) => {
         e.preventDefault();
@@ -126,5 +192,5 @@ export const useProduct = (payload: Params) => {
 
     
 
-    return {addProduct,updateProduct, handleGetProduct, deleteProduct}
+    return {addProduct,updateProduct, handleGetProduct, deleteProduct, handleGetTopProduct, handleGetWorstProduct}
 }

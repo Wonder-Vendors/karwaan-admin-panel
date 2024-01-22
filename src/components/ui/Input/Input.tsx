@@ -4,13 +4,14 @@ import Button from '../Button/Button';
 
 type Props = {
     type: string;
-    text: string;
+    text?: string;
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
     name?: string;
-    value?: any
+    value?: any;
+    placeholder?:string
 };
 
-const Input = ({ type, text, onChange, name, value }: Props) => {
+const Input = ({ type, text, onChange, name, value, placeholder }: Props) => {
     const [toggle, setToggle] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -18,7 +19,7 @@ const Input = ({ type, text, onChange, name, value }: Props) => {
         return (
             <label htmlFor={name} id={styles.container}>
                 <span id={styles.text}>{text}</span>
-                <input type={type} name={name} id={styles.input} onChange={onChange} value={value}/>
+                <input type={type} name={name} id={styles.input} onChange={onChange} value={value} placeholder={placeholder}/>
             </label>
         );
     }

@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './page.module.css'
 import Image from 'next/image'
 import animation from './animation.json'
@@ -10,6 +10,7 @@ import { useDashboard } from '@/hooks/useDashboard'
 import { useRouter } from 'next/navigation'
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import { ClipLoader } from 'react-spinners'
+import { useProduct } from '@/hooks/useProducts'
 
 // import OrderChart from '@/components/ui/charts/OrderChart/OrderChart'
 
@@ -21,25 +22,36 @@ const page = () => {
     router.push('/signin')
     return;
   }
-
+  const {handleGetTopProduct, handleGetWorstProduct}=useProduct({});
   const { handleDashboardData } = useDashboard();
   const dashboardData = handleDashboardData();
-
+  const [topProducts,setTopProducts]=useState<any>("");
+  const [worstProducts,setWorstProducts]=useState<any>("");
+// get top products 
+useEffect(()=>{
+(async()=>{
+    const topProductsData =await handleGetTopProduct();
+    const worstProductsData=await handleGetWorstProduct();
+    setTopProducts(topProductsData);
+    setWorstProducts(worstProductsData);
+  })();
+},[])
   const options = {
     animationData: animation,
     loop: true
   };
-
+   console.log("koi toh ",worstProducts)
   const { View } = useLottie(options);
   return (
     <div id={styles.container}>
+      {/* top */}
       <div id={styles.top}>
         <div id={styles.topLeft}>
           {View}
         </div>
         <span id={styles.heading}>Welcome {user ? `${user.firstName} ${user.lastName}` : 'Unknown user'}, to Karwaan Admin Pannel</span>
       </div>
-
+      {/* middle */}
       <div id={styles.middle}>
         <div className={styles.middleItem}>
           <span className={styles.middleItemText}>Total orders</span>
@@ -66,9 +78,7 @@ const page = () => {
              dashboardData ?
             dashboardData.total_revenue
             :
-            <div>
-              <ClipLoader color="blue" size={15} speedMultiplier={0.5} />
-            </div>
+              <ClipLoader color="blue" size={20} speedMultiplier={0.5} />
             }<CurrencyRupeeIcon className={styles.rupee} /></span>
         </div>
         <div className={styles.middleItem}>
@@ -99,22 +109,43 @@ const page = () => {
       <div id={styles.bottom}>
         {/* <OrderChart data={''}/> */}
         {/* products */}
+        {/* top Products */}
         <div className={styles.products}>
           <h2 className={styles.heading}>Top Products</h2>
 
-          {/* { topProducts && topProducts.map((data: any, index: number) => {
+          { topProducts && topProducts.map((data: any, index: number) => {
                 return (
                   <div className={styles.ProductsContainer} key={index}>
-                    <img className={styles.ProductsContainerLeft} src={"data:image/jpeg;base64," + data?.product_details?.media?.data} alt="not found" />
+                    <img className={styles.ProductsContainerLeft} src={"data:image/jpeg;base64," + data?.media?.data} alt="not found" />
                     <div className={styles.ProductsContainerRight}>
-                      <div className={styles.cartItemInfo}>{data?.product_details.name}</div>
-                      <div className={styles.cartItemInfo}>{data?.product_details.tags.join(", ")}</div>
-                      <div className={styles.cartItemInfo}>{data?.product_details.price + " "}<CurrencyRupeeIcon className={styles.rupee} /></div>
+                      <div className={styles.cartItemInfo}>Name<span className={styles.info}>{data?.name}</span></div>
+                      <div className={styles.cartItemInfo}>Tags<span className={styles.info}>{data?.tags.join(", ")}</span></div>
+                      <div className={styles.cartItemInfo}>Price<span className={styles.info}>{data?.price + " "}</span><CurrencyRupeeIcon className={styles.rupee2} /></div>
+                      <div className={styles.cartItemInfo}>Count<span className={styles.info}>{data?.count }</span></div>
                     </div>
                   </div>
                 )
               })
-            } */}
+            }
+        </div>
+        {/* worst Products */}
+        <div className={styles.products}>
+          <h2 className={styles.heading}>Worst Products</h2>
+
+          { worstProducts && worstProducts.map((data: any, index: number) => {
+                return (
+                  <div className={styles.ProductsContainer} key={index}>
+                    <img className={styles.ProductsContainerLeft} src={"data:image/jpeg;base64," + data?.media?.data} alt="not found" />
+                    <div className={styles.ProductsContainerRight}>
+                      <div className={styles.cartItemInfo}>Name<span className={styles.info}>{data?.name}</span></div>
+                      <div className={styles.cartItemInfo}>Tags<span className={styles.info}>{data?.tags.join(", ")}</span></div>
+                      <div className={styles.cartItemInfo}>Price<span className={styles.info}>{data?.price + " "}</span><CurrencyRupeeIcon className={styles.rupee2} /></div>
+                      <div className={styles.cartItemInfo}>Count<span className={styles.info}>{data?.count }</span></div>
+                    </div>
+                  </div>
+                )
+              })
+            }
         </div>
 
       </div>

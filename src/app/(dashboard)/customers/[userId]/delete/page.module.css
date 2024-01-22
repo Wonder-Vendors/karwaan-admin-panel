@@ -1,0 +1,32 @@
+#container{
+    height: 100vh;
+    width: 100%;
+    display: grid;
+    place-items: center;
+}
+
+#wrapper{
+    width: 40%;
+    border-radius: 5px;
+    border: 1px solid #85858555;
+    background-color: #131313;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#heading{
+    font-size: x-large;
+    font-weight: 600;
+}
+
+#text{
+    color: grey;
+}
+
+#buttonContainer{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

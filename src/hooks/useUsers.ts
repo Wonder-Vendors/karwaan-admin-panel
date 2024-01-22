@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import { useAxios } from "./useAxios";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { locallyStoredVariables } from "@/constants/locallyStoredVariables";
 import { useState } from "react";
 type payloadType = {
@@ -96,13 +96,19 @@ export const useUsers = (payload: Params) => {
         // dispatch(deleteUser_request());
         // if(!token) return;
         try {
+            const pathName=usePathname();
+          
             const { deleteCall } = useAxios(`/user/${payload._id}`, null, token);
 
             const response = await deleteCall();
             if (response.status === "success") {
                 // dispatch(deleteUser_success());
                 toast.success(response.message && response.message);
-                router.push('/users')
+                if(pathName.includes("customers")){
+                    router.push('/customers')
+                }else if(pathName.includes("users")){
+                    router.push('/users')
+                }
                 // router.push('/customers')
                 // dispatch(update_user_data(response.data.user));
                 return;
