@@ -137,8 +137,8 @@ useEffect(()=>{
                   <div className={styles.ProductsContainer} key={index}>
                     <img className={styles.ProductsContainerLeft} src={"data:image/jpeg;base64," + data?.media?.data} alt="not found" />
                     <div className={styles.ProductsContainerRight}>
-                      <div className={styles.cartItemInfo}>Name<span className={styles.info}>{data?.name}</span></div>
-                      <div className={styles.cartItemInfo}>Tags<span className={styles.info}>{data?.tags.join(", ")}</span></div>
+                      <div className={styles.cartItemInfo}>Name<span className={styles.info}> {data?.name}</span></div>
+                      <div className={styles.cartItemInfo}>Tags<span className={styles.info}> {data?.tags&&data?.tags.join(", ")}</span></div>
                       <div className={styles.cartItemInfo}>Price<span className={styles.info}>{data?.price + " "}</span><CurrencyRupeeIcon className={styles.rupee2} /></div>
                       <div className={styles.cartItemInfo}>Count<span className={styles.info}>{data?.count }</span></div>
                     </div>

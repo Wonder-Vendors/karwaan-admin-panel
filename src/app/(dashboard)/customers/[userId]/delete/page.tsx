@@ -46,8 +46,8 @@ const page = () => {
         return (
             <div id={styles.container}>
                 <div id={styles.wrapper}>
-                    <span id={styles.heading}>Are you sure you want to delete this customer?</span>
-                    <span id={styles.text}>Please type in "{formData&&formData.firstName.trim()}" of the customers to continue.</span>
+                    <span id={styles.heading}>Are you sure you want to delete this user?</span>
+                    <span id={styles.text}>Please type in "{formData&&formData.firstName.trim()}" of the user to continue.</span>
                     <Input type='text' onChange={(e) => { setInput(e.target.value) }} name='name' text='Please enter the name of the user' />
                     <div id={styles.buttonContainer}>
                         <Button theme='default' text='Cancel' onClick={() => {router.push(`/users/${formData&&formData._id}`)}} type='button' />

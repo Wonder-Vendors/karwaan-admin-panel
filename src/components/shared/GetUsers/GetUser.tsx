@@ -54,7 +54,7 @@ const GetUser: FC<GetUserProps> = ({ role }) => {
             <div><span className={styles.userDetails}>Name: </span>{data.firstName+" "+data.lastName}</div>
             <div><span className={styles.userDetails}>Email: </span>{data.email?data.email:"Null"}</div>
             <div><span className={styles.userDetails}>Phone number: </span>{data.phoneNumber?data.phoneNumber:"nil"}</div>
-            <div><span className={styles.userDetails}>Created at: </span> {data.createdAt.split('-').reverse().slice(1).join("/")}</div>
+            <div><span className={styles.userDetails}>Created at: </span> {data.createdAt?data.createdAt.split('-').reverse().slice(1).join("/"):"Null"}</div>
            </div>
            
            </div>)
