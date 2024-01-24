@@ -21,9 +21,7 @@ const UpdateProduct: FC<ProductIdProps> = ({ productId }) => {
     const [tag, setTag] = useState('');
     const router = useRouter();
 
-    const { user } = locallyStoredVariables();
-    // const tagRef = useRef<HTMLInputElement>(null);
- 
+    const { user } = locallyStoredVariables(); 
     type payloadType = {
         file: any,
         name: string,
@@ -40,7 +38,8 @@ const UpdateProduct: FC<ProductIdProps> = ({ productId }) => {
         description: "",
         userId: user?._id || null,
     });
-    const { updateProduct, handleGetProduct } = useProduct({ payload: {...payload}, productId: productId as string })
+
+    const { handleGetProduct } = useProduct({ payload: {...payload}, productId: productId as string })
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [imageFromDb, setImageFromDb] = useState<string | null>(null);
 
@@ -61,20 +60,11 @@ const UpdateProduct: FC<ProductIdProps> = ({ productId }) => {
         })();
     }, [productId])
 
-
-    formdata.append('file', payload.file);
-    formdata.append('name', payload.name);
-    formdata.append('price', `${payload.price}`);
-    payload?.tags?.map((tag) => {
-        formdata.append('tags', tag);
-    });
-    formdata.append('description', payload.description);
-    formdata.append('userId', payload.userId!);
-
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
-        if (files && files.length > 0) {
-            setPayload({ ...payload, file: files[0] });
+        if(files && files.length > 0){
+            console.log("44", files[0]);
+            setPayload({...payload, file: files[0]});
         }
     };
 
@@ -90,6 +80,21 @@ const UpdateProduct: FC<ProductIdProps> = ({ productId }) => {
             }
         };
     }, [payload.file]);
+
+    formdata.append('file', payload.file);
+    formdata.append('name', payload.name);
+    formdata.append('price', `${payload.price}`);
+    payload?.tags?.map((tag) => {
+        formdata.append('tags', tag);
+    });
+    formdata.append('description', payload.description);
+    formdata.append('userId', payload.userId!);
+
+    const  {updateProduct} = useProduct({
+        formdata: formdata,
+        payload: undefined,
+        productId: productId
+    })
     return (
         <div id={styles.container}>
             {payload &&

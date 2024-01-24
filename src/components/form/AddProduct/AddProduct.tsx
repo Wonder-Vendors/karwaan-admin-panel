@@ -43,12 +43,11 @@ const AddProduct = () => {
         const files = e.target.files;
         if(files && files.length > 0){
             console.log("44", files[0]);
-            formdata.append('file', files[0]);
+            setPayload({...payload, file: files[0]});
         }
-
-        // setPayload({ ...payload, file: files[0] });
     };
-
+    
+    formdata.append('file', payload.file);
 
     const [imageUrl, setImageUrl] = useState<string | null>(null);
 
@@ -64,7 +63,11 @@ const AddProduct = () => {
         };
     }, [payload.file]);
 
-    const {addProduct} = useProduct({formdata: formdata})
+    const {addProduct} = useProduct({
+        formdata: formdata,
+        payload: undefined,
+        productId: undefined
+    });
     return (
         <div id={styles.container}>
             <Form onSubmit={addProduct}>

@@ -15,7 +15,7 @@ type payloadType = {
 type Params = {
     payload?: payloadType,
     formdata?: FormData,
-    productId?: string
+    productId?: string | string[] | undefined
 }
 
 export const useProduct = (payload: Params) => {
@@ -26,7 +26,7 @@ export const useProduct = (payload: Params) => {
         
         try {
             const {token} = locallyStoredVariables();
-            const {postCall} = useAxios('/admin/create-product', payload, token);
+            const {postCall} = useAxios('/admin/create-product', payload.formdata, token);
             const response = await postCall();
             
             if(response.status === "success"){
@@ -49,11 +49,12 @@ export const useProduct = (payload: Params) => {
         
         try {
             const {token} = locallyStoredVariables();
-            const {postCall} = useAxios(`/admin/update-product/${productId}`, payload, token);
-            const response = await postCall();
+            const {putCall} = useAxios(`/admin/update-product/${productId}`, payload.formdata, token);
+            const response = await putCall();
             
             if(response.status === "success"){
                 toast.success(response.message);
+                router.push(`/products/${productId}`)
             }
 
         } catch (error: any) {
@@ -94,6 +95,8 @@ export const useProduct = (payload: Params) => {
                     }
                     router.push('/signup');
                 }
+
+                toast.error(error.message);
             }
         }
     }
