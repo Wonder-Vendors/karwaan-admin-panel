@@ -1,7 +1,7 @@
 "use client"
 
 import AddProduct from '@/components/form/AddProduct/AddProduct';
-import React, { useState } from 'react'
+import React from 'react'
 import styles from './page.module.css'
 
 const page = () => {

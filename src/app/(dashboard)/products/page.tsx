@@ -1,22 +1,23 @@
 "use client"
 
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './page.module.css'
 import ProductCard from '@/components/card/ProductCard/ProductCard'
 import { useAxios } from '@/hooks/useAxios';
 import toast from 'react-hot-toast';
 import { ClipLoader } from 'react-spinners';
-import { locallyStoredVariables } from '@/constants/locallyStoredVariables';
-import { useRouter } from 'next/navigation';
+// import { locallyStoredVariables } from '@/constants/locallyStoredVariables';
+// import { useRouter } from 'next/router';
 
 const page = () => {
-    const router = useRouter();
+    // const router = useRouter();
 
-    const { user } = locallyStoredVariables();
-    if (!user) {
-        router.push('/signin')
-        return;
-    }
+    // const { user } = locallyStoredVariables();
+    // if (typeof(window) !== "undefined") {
+    //     if(!user){
+    //         router.push('/signin');
+    //     }
+    // }
 type productType={
     _id: string,
     userId: string,
@@ -47,7 +48,6 @@ type productType={
         getAllProducts();
     }, []);
 
-    // const cachedProducts = useMemo(() => products, [products]);
     return (
         <div id={styles.container}>
             <span id={styles.heading}>View all products</span>

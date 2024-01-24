@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import styles from './page.module.css'
-import Image from 'next/image'
+
 import animation from './animation.json'
 import { useLottie } from 'lottie-react'
 import { locallyStoredVariables } from '@/constants/locallyStoredVariables'
@@ -17,11 +17,11 @@ import { useProduct } from '@/hooks/useProducts'
 const page = () => {
   const router = useRouter();
   const { user } = locallyStoredVariables();
-  const { token } = locallyStoredVariables();
-  if (!user) {
+if(typeof(window) !== "undefined"){  
+  if(typeof(window) !== "undefined")if (!user) {
     router.push('/signin')
     return;
-  }
+  }}
   const {handleGetTopProduct, handleGetWorstProduct}=useProduct({});
   const { handleDashboardData } = useDashboard();
   const dashboardData = handleDashboardData();
@@ -40,7 +40,7 @@ useEffect(()=>{
     animationData: animation,
     loop: true
   };
-   console.log("koi toh ",worstProducts)
+ 
   const { View } = useLottie(options);
   return (
     <div id={styles.container}>

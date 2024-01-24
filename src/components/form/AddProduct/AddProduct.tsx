@@ -5,11 +5,10 @@ import Form from '@/components/ui/Form/Form';
 import Input from '@/components/ui/Input/Input'
 import Textarea from '@/components/ui/Textarea/Textarea';
 import styles from './AddProduct.module.css'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BsXLg } from "react-icons/bs";
 import { useProduct } from '@/hooks/useProducts';
 import { locallyStoredVariables } from '@/constants/locallyStoredVariables';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 
@@ -17,18 +16,18 @@ import toast from 'react-hot-toast';
 const AddProduct = () => {
     const formdata = new FormData();
     const [tag, setTag] = useState('');
-    const router = useRouter();
 
     const {user} = locallyStoredVariables();
-    const tagRef = useRef();
-
-    const [payload, setPayload] = useState<{ file: any, name: string, price: number | null, tags: string[], description: string, userId: string | null }>({
+    if(typeof(window) !== "undefined"){
+        var userID=user._id;
+    }
+    var [payload, setPayload] = useState<{ file: any, name: string, price: number | null, tags: string[], description: string, userId: string | null }>({
         file: null,
         name: '',
         price: null,
         tags: [],
         description: '',
-        userId: user._id || null,
+        userId: userID || null,
     });
 
     formdata.append('name', payload.name);
