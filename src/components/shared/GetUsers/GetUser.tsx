@@ -12,14 +12,11 @@ const GetUser: FC<GetUserProps> = ({ role }) => {
    const {handleGetUsers}=useUsers({role:role});
     const [response,setResponse]=useState<any>(null);
   const [filteredData, setFilteredData] = useState<any>([]);
-
-  // const allData = ["Item 1", "Item 2", "Item 3", /* ... */];
   
   const handleSearch = (filteredData: any) => {
     setFilteredData(filteredData);
   };
   
-   
     useEffect(()=>{
     ( async()=>{
        const data=await handleGetUsers();
@@ -54,7 +51,7 @@ const GetUser: FC<GetUserProps> = ({ role }) => {
             <div><span className={styles.userDetails}>Name: </span>{data.firstName+" "+data.lastName}</div>
             <div><span className={styles.userDetails}>Email: </span>{data.email?data.email:"Null"}</div>
             <div><span className={styles.userDetails}>Phone number: </span>{data.phoneNumber?data.phoneNumber:"nil"}</div>
-            <div><span className={styles.userDetails}>Created at: </span> {data.createdAt.split('-').reverse().slice(1).join("/")}</div>
+            <div><span className={styles.userDetails}>Created at: </span> {data.createdAt ? data.createdAt.split('-').reverse().slice(1).join("/") : "Null"}</div>
            </div>
            
            </div>)

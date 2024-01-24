@@ -31,7 +31,6 @@ const AddProduct = () => {
         userId: user._id || null,
     });
 
-    formdata.append('file', payload.file);
     formdata.append('name', payload.name);
     formdata.append('price', `${payload.price}`);
     payload.tags.map((tag) => {
@@ -42,10 +41,14 @@ const AddProduct = () => {
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
-        if (files && files.length > 0) {
-            setPayload({ ...payload, file: files[0] });
+        if(files && files.length > 0){
+            console.log("44", files[0]);
+            formdata.append('file', files[0]);
         }
+
+        // setPayload({ ...payload, file: files[0] });
     };
+
 
     const [imageUrl, setImageUrl] = useState<string | null>(null);
 
