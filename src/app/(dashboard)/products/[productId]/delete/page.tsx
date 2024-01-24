@@ -28,13 +28,21 @@ const {deleteProduct} =useProduct({productId:productId as string});
                     toast.error(error.response?.data.message);
                 }
 
-                toast.error(error.message);
+                // toast.error(error.message);
                 setProduct("not found")
             }
         }
 
         getProductDetails();
     }, []);
+    if(product==="not found"){
+        return(
+            <div id={styles.container}>
+           No product is avialable
+           
+        </div>
+        )
+    }
     if (product) {
         return (
             <div id={styles.container}>
