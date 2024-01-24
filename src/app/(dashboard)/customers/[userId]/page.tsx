@@ -10,38 +10,36 @@ import toast from "react-hot-toast";
 
 function page() {
     const {userId}=useParams<{userId:string}>();
-    const { handleGetCustomer } = useUsers({_id:userId});
+    const { handleGetUser, handleDeleteUser } = useUsers({_id:userId});
     const router = useRouter();
     const [formData, setFormData] = useState<formType|null>(null);
+
     useEffect(() => {
-        ( async()=> { 
-          const data= await handleGetCustomer();
-         data&& setFormData({
-           token: data?.token,
-           _id: data?._id,
-           firstName: data?.firstName,
-           lastName: data?.lastName,
-           email: data?.email,
-           phoneNumber: data?.phoneNumber,
-           isEmailValid:data?.isEmailValid,
-           isPhoneNumberValid:data?.isPhoneNumberValid,
-       });
-       })();
-       }, []);
-   
-       type formType = {
-           token: string,
-           _id: string,
-           firstName: string,
-           lastName: string,
-           email: string,
-           phoneNumber: string,
-           isEmailValid:boolean,
-           isPhoneNumberValid:boolean,
-       }
+     ( async()=> { 
+       const data= await handleGetUser();
+      data&& setFormData({
+        token: data?.token,
+        _id: data?._id,
+        firstName: data?.firstName,
+        lastName: data?.lastName,
+        email: data?.email,
+        phoneNumber: data?.phoneNumber,
+        isEmailValid:data?.isEmailValid,
+        isPhoneNumberValid:data?.isPhoneNumberValid,
+    });
+    })();
+    }, []);
 
-
-    // delete open and close logic
+    type formType = {
+        token: string,
+        _id: string,
+        firstName: string,
+        lastName: string,
+        email: string,
+        phoneNumber: string,
+        isEmailValid:boolean,
+        isPhoneNumberValid:boolean,
+    } 
 
     return (
 
@@ -60,7 +58,7 @@ function page() {
                 </div>
                 <div className={styles.deleteAccount}>
                 {/* delete account*/}
-                    <button className={styles.btn} onClick={()=>router.push(`/customers/${formData&&formData._id}/delete`)}>delete account</button>
+                    <button className={styles.btn} onClick={()=>router.push(`/users/${formData&&formData._id}/delete`)}>delete account</button>
 
                 </div>
                 </div>

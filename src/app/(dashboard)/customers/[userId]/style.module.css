@@ -1,33 +1,34 @@
-
-.myAccountContainer{
-  min-height: 100svh;
+.myAccountContainer {
+  height: 100svh;
   background: #000;
+  padding: 20px;
 }
 .myAccount {
   /* min-height: 90svh; */
   color: rgb(255, 255, 255);
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   flex-direction: column;
   flex-wrap: wrap;
   position: relative;
   padding: 0;
 }
-.info{
+.info {
   display: flex;
-  color:#007bff ;
+  color: #ffffff;
+  /* color:#007bff ; */
   margin-bottom: 30px;
   padding-left: 5px;
   gap: 3px;
 }
-.infoType{
+.infoType {
   display: flex;
-  color:#ffffff ;
+  /* color:#ffffff ; */
+  color: grey;
 }
 .heading {
   display: flex;
   align-items: center;
-  justify-content: center;
   text-transform: capitalize;
   height: 10%;
   color: white;
@@ -61,8 +62,8 @@
 }
 .myAccountForm,
 .resetPassword,
-.changeEmail ,
-.changePhoneNo{
+.changeEmail,
+.changePhoneNo {
   width: 50%;
   padding: 0% 5%;
   display: flex;
@@ -74,8 +75,8 @@
 }
 .myAccountForm h2,
 .resetPassword h2,
-.changeEmail h2 ,
-.deleteAccount h2 ,
+.changeEmail h2,
+.deleteAccount h2,
 .changePhoneNo h2 {
   text-align: center;
   margin-bottom: 10px;
@@ -89,11 +90,10 @@
   flex-direction: column;
   margin: 10px 0;
   position: relative;
-
 }
 .myAccountForm label,
 .resetPassword label,
-.changeEmail label, 
+.changeEmail label,
 .changePhoneNo label {
   /* font-weight: bolder; */
   font-size: 16px;
@@ -105,7 +105,7 @@
 }
 .myAccountForm input,
 .resetPassword input,
-.changeEmail input, 
+.changeEmail input,
 .changePhoneNo input {
   border: 0px;
   border-bottom: 1px solid white;
@@ -159,18 +159,17 @@
 .visibility:hover {
   cursor: pointer;
 }
-.VisibleIcon{
+.VisibleIcon {
   font-size: 20px !important;
 }
 .inputField {
   color: white;
-  margin-bottom:30px !important;
+  margin-bottom: 30px !important;
 }
 .myAccountForm,
 .changeEmail,
 .changePhoneNo,
-.resetPassword,
-.deleteAccount {
+.resetPassword {
   width: 50%;
   padding: 0% 5%;
   display: flex;
@@ -178,13 +177,25 @@
   justify-content: flex-start;
   margin-bottom: 10px;
 }
-.message:hover{
-cursor: pointer;
+.message:hover {
+  cursor: pointer;
 }
-.deleteAccount h2 {
-  text-align: center;
+.deleteAccount .btn {
   text-transform: capitalize;
   margin-bottom: 10px;
+  background: red;
+  color: white;
+  height: 30px;
+  display: grid;
+  width: 120px;
+  place-items: center;
+  background-color: tomato;
+  font-weight: 500;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 0 10px;
 }
 
 .changeEmail h2,
@@ -219,7 +230,7 @@ cursor: pointer;
 }
 
 @media (max-width: 650px) {
-  .myAccountContainer{
+  .myAccountContainer {
     min-height: 100svh;
     height: auto;
     display: flex;
@@ -243,18 +254,18 @@ cursor: pointer;
     height: 60px;
   }
   .myAccountForm,
-.changeEmail,
-.changePhoneNo,
-.resetPassword,
-.deleteAccount {
-  width: 90%;
-  max-width: 500px;
-  padding: 0% 5%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  margin-bottom: 10px;
-}
+  .changeEmail,
+  .changePhoneNo,
+  .resetPassword,
+  .deleteAccount {
+    width: 90%;
+    max-width: 500px;
+    padding: 0% 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+  }
 
   .login {
     justify-content: center;
@@ -265,7 +276,7 @@ cursor: pointer;
 }
 /* delete  */
 /*------------ delete ----------- */
-.deletePopUp{
+.deletePopUp {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -277,25 +288,25 @@ cursor: pointer;
   position: absolute;
   bottom: 50%;
   left: 50%;
-  transform: translate(-50%,50%);
+  transform: translate(-50%, 50%);
   z-index: 99;
   background: white;
   color: #000;
   /* box-shadow: 2px 2px 5px 1px grey; */
 }
-.deletePopUp p{
-font-size: 16px ;
-font-weight: lighter;
- display: block;
+.deletePopUp p {
+  font-size: 16px;
+  font-weight: lighter;
+  display: block;
 }
-.deletePopUp p:nth-child(2n){
-font-size: 16px ;
-font-weight: lighter;
- display: block;
- color: red;
+.deletePopUp p:nth-child(2n) {
+  font-size: 16px;
+  font-weight: lighter;
+  display: block;
+  color: red;
 }
-.deletePopUpButtons{
-font-size: 16px ;
+.deletePopUpButtons {
+  font-size: 16px;
   display: flex;
   justify-content: space-around;
   width: 100%;
@@ -311,33 +322,32 @@ font-size: 16px ;
   border-radius: 5px;
   font-size: 16px;
 }
-.deletePopUp>button{
+.deletePopUp > button {
   background: rgb(0, 0, 0);
   position: absolute;
   border-radius: 50%;
   color: rgb(255, 255, 255);
   width: 20px;
-  height:20px;
+  height: 20px;
   right: 0;
   top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translate(-10px,10px);
+  transform: translate(-10px, 10px);
 }
-.deletePopUp>button:hover{
-cursor: pointer;   
+.deletePopUp > button:hover {
+  cursor: pointer;
 }
-.deletePopUpButton:hover{
+.deletePopUpButton:hover {
   cursor: pointer;
   background: #151515;
   /* box-shadow: 2px 2px 5px 1px grey; */
   color: white;
   font-weight: bolder;
-  
 }
-@media (max-width:650px) {
-  .deletePopUp{
+@media (max-width: 650px) {
+  .deletePopUp {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -349,7 +359,7 @@ cursor: pointer;
     position: absolute;
     bottom: 0%;
     left: 50%;
-    transform: translate(-50%,50%);
+    transform: translate(-50%, 50%);
     z-index: 99;
     background: white;
     /* box-shadow: 2px 2px 5px 1px grey; */
