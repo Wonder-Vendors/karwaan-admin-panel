@@ -18,7 +18,7 @@ const Navbar = () => {
             }
             return <Link href={navbarItem.route} key={index} className={styles.item}>{navbarItem.name}</Link> 
         })}
-        <Button text='Log out' type='button' onClick={() => localStorage.clear()}/>
+        <Button text='Log out' type='button' onClick={() => localStorage.clear()} theme='default'/>
     </div>
   )
 }
