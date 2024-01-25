@@ -13,13 +13,15 @@ if(typeof(window) !== "undefined"){
    if(!user || !token){
     router.push('/signin');
     return;
+  }else{
+    return (
+      <div id={styles.container}>
+          <Navbar/>
+          {children}
+      </div>
+    )
   }}
-  return (
-    <div id={styles.container}>
-        <Navbar/>
-        {children}
-    </div>
-  )
+
 }
 
 export default layout
