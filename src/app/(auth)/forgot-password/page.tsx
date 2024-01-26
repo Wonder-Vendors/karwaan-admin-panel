@@ -1,10 +1,18 @@
+"use client"
 import React from 'react'
 import styles from './page.module.css'
 import Image from 'next/image'
 import { ForgotPassword } from '@/components/form/ForgotPassword/ForgotPassword'
 import Link from 'next/link'
-
+import { useEffect } from 'react';
+import { redirect } from 'next/navigation';
 const page = () => {
+  useEffect(()=>{
+    const token =(localStorage.getItem("token")as string);
+      if(token){
+          redirect("/");
+      }
+  },[]);
   return (
     <div id={styles.container}>
         <div id={styles.wrapper}>

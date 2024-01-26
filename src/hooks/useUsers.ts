@@ -39,6 +39,15 @@ export const useUsers = (payload: Params) => {
 
         } catch (error: any) {
             if (axios.isAxiosError(error)) {
+                if (error.response?.status === 403 || error.response?.status === 402) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
+                    }
+                    if (localStorage.getItem('token')) {
+                        localStorage.removeItem("token");
+                    }
+                    router.push('/signin');
+                }
                 return toast.error(error.response?.data.message);
             }
 
@@ -58,7 +67,17 @@ export const useUsers = (payload: Params) => {
 
         } catch (error: any) {
             if (axios.isAxiosError(error)) {
+                if (error.response?.status === 403 || error.response?.status === 402) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
+                    }
+                    if (localStorage.getItem('token')) {
+                        localStorage.removeItem("token");
+                    }
+                    router.push('/signin');
+                }
                 return toast.error(error.response?.data.message);
+                
             }
 
             toast.error(error.message);
@@ -83,6 +102,15 @@ export const useUsers = (payload: Params) => {
         } catch (error: any) {
             // dispatch(getUser_failure(error.message));
             if (axios.isAxiosError(error)) {
+                if (error.response?.status === 403 || error.response?.status === 402) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
+                    }
+                    if (localStorage.getItem('token')) {
+                        localStorage.removeItem("token");
+                    }
+                    router.push('/signin');
+                }
                 toast.error(error.response?.data.message);
                 // dispatch(getUser_failure(error.response?.data.message));
             }
@@ -116,6 +144,15 @@ export const useUsers = (payload: Params) => {
         } catch (error: any) {
             // dispatch(deleteUser_failure(error.message));
             if (axios.isAxiosError(error)) {
+                if (error.response?.status === 403 || error.response?.status === 402) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
+                    }
+                    if (localStorage.getItem('token')) {
+                        localStorage.removeItem("token");
+                    }
+                    router.push('/signin');
+                }
                 toast.error(error.response?.data.message);
                 // dispatch(deleteUser_failure(error.response?.data.message));
 

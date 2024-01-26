@@ -1,9 +1,18 @@
+"use client"
 import Link from 'next/link';
 import styles from './page.module.css';
 import SigninForm from '@/components/form/SigninForm/SigninForm';
 import Image from 'next/image';
+import { useEffect } from 'react';
+import { redirect } from 'next/navigation';
 
 const Page = () => {
+  useEffect(()=>{
+    const token =(localStorage.getItem("token")as string);
+      if(token){
+          redirect("/");
+      }
+  },[]);
   return (
     <div id={styles.container}>
         <div id={styles.wrapper}>

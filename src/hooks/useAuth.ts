@@ -52,6 +52,14 @@ export const useAuth = ({firstName, lastName, email, password}: useAuthProps) =>
             return;
         } catch (error:any) {
             if(axios.isAxiosError(error)){
+                if (error.response?.status === 403 || error.response?.status === 402) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
+                    }
+                    if (localStorage.getItem('token')) {
+                        localStorage.removeItem("token");
+                    }
+                }
                 return toast.error(error.response?.data.message);
             }
 
@@ -90,6 +98,14 @@ export const useAuth = ({firstName, lastName, email, password}: useAuthProps) =>
             }
         } catch (error: any) {
             if(axios.isAxiosError(error)){
+                if (error.response?.status === 403 || error.response?.status === 402) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
+                    }
+                    if (localStorage.getItem('token')) {
+                        localStorage.removeItem("token");
+                    }
+                }
                 return toast.error(error.response?.data.message);
             }
 

@@ -36,7 +36,17 @@ export const useProduct = (payload: Params) => {
 
         } catch (error: any) {
              if(axios.isAxiosError(error)){
+                if (error.response?.status === 403 || error.response?.status === 402) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
+                    }
+                    if (localStorage.getItem('token')) {
+                        localStorage.removeItem("token");
+                    }
+                    router.push('/signin');
+                }
                 return toast.error(error.response?.data.message);
+
             }
 
             toast.error(error.message);
@@ -59,7 +69,17 @@ export const useProduct = (payload: Params) => {
 
         } catch (error: any) {
              if(axios.isAxiosError(error)){
+                if (error.response?.status === 403 || error.response?.status === 402) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
+                    }
+                    if (localStorage.getItem('token')) {
+                        localStorage.removeItem("token");
+                    }
+                    router.push('/signin');
+                }
                 return toast.error(error.response?.data.message);
+                
             }
 
             toast.error(error.message);
@@ -86,14 +106,14 @@ export const useProduct = (payload: Params) => {
                 toast.error(error.response?.data.message);
                 // dispatch(getUser_failure(error.response?.data.message));
 
-                if (error.response?.status === 403) {
+                if (error.response?.status === 403 || error.response?.status === 402) {
                     if (localStorage.getItem("user")) {
                         localStorage.removeItem("user");
                     }
-                    if (localStorage.getItem('cartItems')) {
-                        localStorage.removeItem("cartItems");
+                    if (localStorage.getItem('token')) {
+                        localStorage.removeItem("token");
                     }
-                    router.push('/signup');
+                    router.push('/signin');
                 }
 
                 toast.error(error.message);
@@ -122,14 +142,14 @@ export const useProduct = (payload: Params) => {
                 toast.error(error.response?.data.message);
                 // dispatch(getUser_failure(error.response?.data.message));
 
-                if (error.response?.status === 403) {
+                if (error.response?.status === 403 || error.response?.status === 402) {
                     if (localStorage.getItem("user")) {
                         localStorage.removeItem("user");
                     }
-                    if (localStorage.getItem('cartItems')) {
-                        localStorage.removeItem("cartItems");
+                    if (localStorage.getItem('token')) {
+                        localStorage.removeItem("token");
                     }
-                    router.push('/signup');
+                    router.push('/signin');
                 }
             }
         }
@@ -154,14 +174,14 @@ export const useProduct = (payload: Params) => {
                 toast.error(error.response?.data.message);
                 // dispatch(getUser_failure(error.response?.data.message));
 
-                if (error.response?.status === 403) {
+                if (error.response?.status === 403 || error.response?.status === 402) {
                     if (localStorage.getItem("user")) {
                         localStorage.removeItem("user");
                     }
-                    if (localStorage.getItem('cartItems')) {
-                        localStorage.removeItem("cartItems");
+                    if (localStorage.getItem('token')) {
+                        localStorage.removeItem("token");
                     }
-                    router.push('/signup');
+                    router.push('/signin');
                 }
             }
         }
@@ -185,7 +205,17 @@ export const useProduct = (payload: Params) => {
 
         } catch (error: any) {
              if(axios.isAxiosError(error)){
+                if (error.response?.status === 403 || error.response?.status === 402) {
+                    if (localStorage.getItem("user")) {
+                        localStorage.removeItem("user");
+                    }
+                    if (localStorage.getItem('token')) {
+                        localStorage.removeItem("token");
+                    }
+                    router.push('/signin');
+                }
                 return toast.error(error.response?.data.message);
+           
             }
 
             toast.error(error.message);
