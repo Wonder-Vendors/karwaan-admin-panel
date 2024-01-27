@@ -25,17 +25,18 @@ if(typeof(window) !== "undefined"){
   const {handleGetTopProduct, handleGetWorstProduct}=useProduct({});
   const { handleDashboardData } = useDashboard();
   const dashboardData = handleDashboardData();
-  const [topProducts,setTopProducts]=useState<any>("");
-  const [worstProducts,setWorstProducts]=useState<any>("");
+  // for futher imporvement
+  // const [topProducts,setTopProducts]=useState<any>("");
+  // const [worstProducts,setWorstProducts]=useState<any>("");
 // get top products 
-useEffect(()=>{
-(async()=>{
-    const topProductsData =await handleGetTopProduct();
-    const worstProductsData=await handleGetWorstProduct();
-    setTopProducts(topProductsData);
-    setWorstProducts(worstProductsData);
-  })();
-},[])
+// useEffect(()=>{
+// (async()=>{
+//     const topProductsData =await handleGetTopProduct();
+//     const worstProductsData=await handleGetWorstProduct();
+//     setTopProducts(topProductsData);
+//     setWorstProducts(worstProductsData);
+//   })();
+// },[])
   const options = {
     animationData: animation,
     loop: true
@@ -106,10 +107,7 @@ useEffect(()=>{
 
       </div>
 
-      <div id={styles.bottom}>
-        {/* <OrderChart data={''}/> */}
-        {/* products */}
-        {/* top Products */}
+      {/* <div id={styles.bottom}>
         <div className={styles.products}>
           <h2 className={styles.heading}>Top Products</h2>
 
@@ -128,7 +126,6 @@ useEffect(()=>{
               })
             }
         </div>
-        {/* worst Products */}
         <div className={styles.products}>
           <h2 className={styles.heading}>Worst Products</h2>
 
@@ -148,7 +145,7 @@ useEffect(()=>{
             }
         </div>
 
-      </div>
+      </div> */}
     </div>
   )
 }

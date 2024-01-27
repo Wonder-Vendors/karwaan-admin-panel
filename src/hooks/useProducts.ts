@@ -132,7 +132,6 @@ export const useProduct = (payload: Params) => {
             if (result.status === "success") {
                 // dispatch(getUser_success());
                 // dispatch(update_user_data(response.data.user));
-                console.log("top product data", result.data)
                 return result.data;
             }
 
@@ -164,7 +163,6 @@ export const useProduct = (payload: Params) => {
             if (result.status === "success") {
                 // dispatch(getUser_success());
                 // dispatch(update_user_data(response.data.user));
-                console.log("top product data", result.data)
                 return result.data;
             }
 

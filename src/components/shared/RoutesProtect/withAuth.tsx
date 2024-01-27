@@ -6,7 +6,7 @@ export default function withAuth(Component :any){
         useEffect(()=>{
         var token =(localStorage.getItem("token")as string);
         if(!token){
-            redirect("/signup");
+            redirect("/signin");
         }
     },[]);
     if(typeof(window)!=="undefined"&& !(localStorage.getItem("token")as string)){

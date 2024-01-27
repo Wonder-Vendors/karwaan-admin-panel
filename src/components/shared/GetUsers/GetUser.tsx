@@ -36,7 +36,6 @@ const GetUser: FC<GetUserProps> = ({ role }) => {
         router.push(`/users/${data._id}`);
       } 
      }
-     console.log(filteredData,"res")
   return (
     <div id={styles.container}>
     <span id={styles.heading}>{role} details  <SearchComponent data={response} onSearch={handleSearch} /></span>

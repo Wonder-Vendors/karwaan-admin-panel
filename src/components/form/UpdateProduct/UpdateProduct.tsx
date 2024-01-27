@@ -63,7 +63,6 @@ const UpdateProduct: FC<ProductIdProps> = ({ productId }) => {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if(files && files.length > 0){
-            console.log("44", files[0]);
             setPayload({...payload, file: files[0]});
         }
     };

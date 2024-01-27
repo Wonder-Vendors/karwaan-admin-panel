@@ -24,7 +24,6 @@ export const useUsers = (payload: Params) => {
 
     const handleGetUsers = async () => {
         try {
-            console.log("han m chala")
             const { token } = locallyStoredVariables();
             if (payload.role === 'admin') {
                 var { getCall } = useAxios(`/admin/get-admins`, null, token);
@@ -95,7 +94,6 @@ export const useUsers = (payload: Params) => {
             if (response.status === "success") {
                 // dispatch(getUser_success());
                 // dispatch(update_user_data(response.data.user));
-             console.log("56",response.data)
                 return {  ...response.data };
             }
 
