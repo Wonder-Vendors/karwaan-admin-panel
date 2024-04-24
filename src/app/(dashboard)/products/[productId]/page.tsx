@@ -42,7 +42,7 @@ const page = () => {
         return (
             <div id={styles.container}>
                 <div id={styles.left}>
-                    {product.media.type === 'image' ? <img src={`data:image/png;base64,${product.media.data}`} alt="Error loading image" id={styles.image}/> : <video src="" id={styles.video}></video>}
+                    <img src={product.url} alt="Error loading image" id={styles.image}/> 
                 </div>
                 <div id={styles.right}>
                     <div id={styles.top}>
@@ -52,7 +52,7 @@ const page = () => {
                     <div id={styles.bottom}>
                         <span id={styles.name}>{product?.name}</span>
                         <span id={styles.price}>Rs. {product?.price}</span>
-                        <span id={styles.tags}>Tags: {product?.tags.map((tag: any) => {return <span className={styles.tag}>{tag}</span>})}</span>
+                        <span id={styles.tags}>Tags: {product?.tags.map((tag: any,i:number) => {return <span className={styles.tag} key={i}>{tag}</span>})}</span>
                         <span id={styles.description}>{product.description}</span>
                     </div>
                 </div>

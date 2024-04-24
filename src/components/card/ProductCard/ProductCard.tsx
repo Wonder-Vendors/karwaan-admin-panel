@@ -9,21 +9,20 @@ type Props = {
     description: string, 
     price: number,
     data: string,
-    type: 'image' | 'video';
     _id: string
 }
 
-const ProductCard = ({userId, name, tags, description, price, data, type, _id}: Props) => {
+const ProductCard = ({ name, tags, description, price, data, _id}: Props) => {
     const router = useRouter();
   return (
     <div onClick={() => {router.push(`/products/${_id}`)}} id={styles.container}>
         <div id={styles.imageContainer}>
-            {type === 'image' ? <img src={`data:image/png;base64,${data}`} alt="Error loading image" id={styles.image}/> : <video src="" id={styles.video}></video>}
+            <img src={data} alt="Error loading image" id={styles.image}/> : <video src="" id={styles.video}></video>
         </div>
         <div id={styles.wrapper}>
             <div id={styles.top}>
                 <span id={styles.name}>{name.length < 15 ? name : `${name.substring(0, 15)}...`}</span>
-                <span id={styles.price}>Rs. {price}</span>
+                <span id={styles.price}>Rs.{price}</span>
             </div>
             <span id={styles.tags}>Tags: {tags.map((tag) => {return <span className ={styles.tag}>{tag}</span>})}</span>
             <span id={styles.description}>{description.length < 30 ? description : `${description.substring(0, 15)}...`}</span>

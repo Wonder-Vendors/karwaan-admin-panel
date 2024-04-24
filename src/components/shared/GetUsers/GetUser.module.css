@@ -41,8 +41,11 @@
 }
 .userInfo>div{
     margin-bottom: 2px;
-    color:blue;
+    color:#FCFCFC;
+    font-weight: light;
+
 }
 .userDetails{
+    font-weight: bolder;
     color:rgb(255, 255, 255);
 }

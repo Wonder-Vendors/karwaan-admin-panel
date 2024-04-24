@@ -4,11 +4,10 @@ import Form from '@/components/ui/Form/Form';
 import Input from '@/components/ui/Input/Input'
 import Textarea from '@/components/ui/Textarea/Textarea';
 import styles from '../AddProduct/AddProduct.module.css'
-import React, { useEffect, useRef, useState, FC } from 'react'
+import React, { useEffect, useState, FC } from 'react'
 import { BsXLg } from "react-icons/bs";
 import { useProduct } from '@/hooks/useProducts';
 import { locallyStoredVariables } from '@/constants/locallyStoredVariables';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 
@@ -19,7 +18,7 @@ interface ProductIdProps {
 const UpdateProduct: FC<ProductIdProps> = ({ productId }) => {
     const formdata = new FormData();
     const [tag, setTag] = useState('');
-    const router = useRouter();
+    
 
     const { user } = locallyStoredVariables(); 
     type payloadType = {
@@ -55,7 +54,7 @@ const UpdateProduct: FC<ProductIdProps> = ({ productId }) => {
                 userId: user?._id || null,
             }
             )
-            setImageFromDb(data?.media?.data || null);
+            setImageFromDb(data?.url|| null);
 
         })();
     }, [productId])
@@ -99,7 +98,7 @@ const UpdateProduct: FC<ProductIdProps> = ({ productId }) => {
             {payload &&
                 <Form onSubmit={updateProduct}>
                     {imageUrl ? <Image src={imageUrl} alt="Error loading image" height={0} width={0} style={{ width: '100%', height: '500px', objectFit: 'contain' }} /> : null}
-                    {(!imageUrl &&imageFromDb) ? <Image src={"data:image/jpeg;base64,"+imageFromDb} alt="Error loading image" height={0} width={0} style={{ width: '100%', height: '500px', objectFit: 'contain' }} /> : null}
+                    {(!imageUrl &&imageFromDb) ? <img src={imageFromDb} alt="Error loading image" height={0} width={0} style={{ width: '100%', height: '500px', objectFit: 'contain' }} /> : null}
                     <Input type='file' text='Upload a media' onChange={handleFileChange} name='file' />
                     <Input type='text' text='Update the name of the product' onChange={(e) => { setPayload({ ...payload, name: e.target.value }) }} name='name' value={payload.name} />
                     <Input type='number' text='Update the price of the product' onChange={(e) => { setPayload({ ...payload, price: parseInt(e.target.value) }) }} name='price' value={payload.price} />

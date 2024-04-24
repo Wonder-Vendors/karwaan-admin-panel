@@ -31,7 +31,7 @@ export const useProduct = (payload: Params) => {
             
             if(response.status === "success"){
                 toast.success(response.message);
-                router.push(`/products/${response.data.product_data._id}`);
+                router.push(`/products/${response.data._id}`);
             }
 
         } catch (error: any) {
