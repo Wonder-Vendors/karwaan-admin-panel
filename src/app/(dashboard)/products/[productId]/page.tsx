@@ -42,7 +42,7 @@ const page = () => {
         return (
             <div id={styles.container}>
                 <div id={styles.left}>
-                    <img src={product.url} alt="Error loading image" id={styles.image}/> 
+                    {product.url.startsWith("http")?<img src={product.url} alt="Error loading image" id={styles.image}/>:<img src={`https://${product.url}`} alt="Error loading image" id={styles.image}/>} 
                 </div>
                 <div id={styles.right}>
                     <div id={styles.top}>

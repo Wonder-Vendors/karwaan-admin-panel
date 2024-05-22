@@ -8,6 +8,10 @@ export const navbarItems: { name: string, route: string}[] = [
         route: '/products',
     },
     {
+        name: 'View all orders',
+        route: '/orders',
+    },
+    {
         name: 'Users',
         route: '/users',
     },
@@ -19,6 +23,7 @@ export const navbarItems: { name: string, route: string}[] = [
         name: 'Admins',
         route: '/admins',
     },
+
     // {
     //     name: 'Add Product',
     //     route: '/add-product',

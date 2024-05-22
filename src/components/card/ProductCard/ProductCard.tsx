@@ -1,6 +1,7 @@
 import { useRouter } from 'next/navigation';
-import React from 'react'
+import React, { useEffect,useState } from 'react'
 import styles from './ProductCard.module.css'
+import { ClipLoader } from 'react-spinners';
 
 type Props = {
     userId: string, 
@@ -14,10 +15,23 @@ type Props = {
 
 const ProductCard = ({ name, tags, description, price, data, _id}: Props) => {
     const router = useRouter();
+    const [imgdata,setData] = useState<string>(data)
+    const [loading,setLoading] = useState<boolean>(true)
+    useEffect(()=>{
+        if(!imgdata.startsWith("http")){
+            setData(`https://${data}`)
+            setLoading(false)
+        }
+        else{
+            setLoading(false)
+        }
+        
+    },[])
   return (
     <div onClick={() => {router.push(`/products/${_id}`)}} id={styles.container}>
         <div id={styles.imageContainer}>
-            <img src={data} alt="Error loading image" id={styles.image}/> : <video src="" id={styles.video}></video>
+            {loading?<ClipLoader color='blue' size={20}/>:
+                <img src={imgdata} alt="Error loading image" id={styles.image}/>}
         </div>
         <div id={styles.wrapper}>
             <div id={styles.top}>
@@ -32,3 +46,5 @@ const ProductCard = ({ name, tags, description, price, data, _id}: Props) => {
 }
 
 export default ProductCard
+
+

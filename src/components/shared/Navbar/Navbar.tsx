@@ -15,7 +15,7 @@ const Navbar = () => {
     const handleLogout=() => {
       localStorage.clear();
       toast.success("loging out");
-       router.push("/signin");
+       router.replace("/signin");
       
       }
   return (
