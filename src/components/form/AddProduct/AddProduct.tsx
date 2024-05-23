@@ -11,11 +11,35 @@ import { useProduct } from '@/hooks/useProducts';
 import { locallyStoredVariables } from '@/constants/locallyStoredVariables';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
+import imageCompression from 'browser-image-compression';
+import { useRouter } from 'next/navigation';
 
 
 const AddProduct = () => {
+    const router = useRouter()
     const formdata = new FormData();
     const [tag, setTag] = useState('');
+    async function handleImageUpload(f:File) {
+
+        const imageFile = f;
+        // console.log('originalFile instanceof Blob', imageFile instanceof Blob ); // true
+        // console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
+      
+        const options = {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1920,
+          useWebWorker: true,
+        }
+        try {
+          const compressedFile = await imageCompression(imageFile, options);
+          return compressedFile
+      
+        } catch (error) {
+          toast.error("Upload Processing Failed Please try again")
+          return null
+        }
+      
+      }
 
     const {user} = locallyStoredVariables();
     if(typeof(window) !== "undefined"){
@@ -38,10 +62,11 @@ const AddProduct = () => {
     formdata.append('description', payload.description);
     formdata.append('userId', payload.userId!);
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if(files && files.length > 0){
-            setPayload({...payload, file: files[0]});
+            const result = await handleImageUpload(files[0])
+            setPayload({...payload, file: result});
         }
     };
     
@@ -50,6 +75,7 @@ const AddProduct = () => {
     const [imageUrl, setImageUrl] = useState<string | null>(null);
 
     useEffect(() => {
+        // console.log("@@kk",payload.file)
         if (payload.file) {
             const imageUrl = URL.createObjectURL(payload.file);
             setImageUrl(imageUrl);
@@ -59,6 +85,7 @@ const AddProduct = () => {
                 URL.revokeObjectURL(imageUrl);
             }
         };
+        
     }, [payload.file]);
 
     const {addProduct} = useProduct({
@@ -66,6 +93,7 @@ const AddProduct = () => {
         payload: undefined,
         productId: undefined
     });
+   
     return (
         <div id={styles.container}>
             <Form onSubmit={addProduct}>
@@ -103,7 +131,7 @@ const AddProduct = () => {
                         }} theme='default' />
                 </div>
                 <Textarea onChange={(e) => setPayload({ ...payload, description: e.target.value })} text="Please enter a description" name='description' />
-                <Button type='submit' text='Add prodcut' theme='default'/>
+                <Button type='submit' text='Add product' theme='default'/>
             </Form>
         </div>
     )
