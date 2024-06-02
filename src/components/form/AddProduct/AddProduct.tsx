@@ -19,27 +19,27 @@ const AddProduct = () => {
     const router = useRouter()
     const formdata = new FormData();
     const [tag, setTag] = useState('');
-    async function handleImageUpload(f:File) {
+    // async function handleImageUpload(f:File) {
 
-        const imageFile = f;
-        // console.log('originalFile instanceof Blob', imageFile instanceof Blob ); // true
-        // console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
+    //     const imageFile = f;
+    //     // console.log('originalFile instanceof Blob', imageFile instanceof Blob ); // true
+    //     // console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
       
-        const options = {
-          maxSizeMB: 1,
-          maxWidthOrHeight: 1920,
-          useWebWorker: true,
-        }
-        try {
-          const compressedFile = await imageCompression(imageFile, options);
-          return compressedFile
+    //     const options = {
+    //       maxSizeMB: 1,
+    //       maxWidthOrHeight: 1920,
+    //       useWebWorker: true,
+    //     }
+    //     try {
+    //       const compressedFile = await imageCompression(imageFile, options);
+    //       return compressedFile
       
-        } catch (error) {
-          toast.error("Upload Processing Failed Please try again")
-          return null
-        }
+    //     } catch (error) {
+    //       toast.error("Upload Processing Failed Please try again")
+    //       return null
+    //     }
       
-      }
+    //   }
 
     const {user} = locallyStoredVariables();
     if(typeof(window) !== "undefined"){
@@ -65,8 +65,8 @@ const AddProduct = () => {
     const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if(files && files.length > 0){
-            const result = await handleImageUpload(files[0])
-            setPayload({...payload, file: result});
+            // const result = await handleImageUpload(files[0])
+            setPayload({...payload, file: files[0]});
         }
     };
     
