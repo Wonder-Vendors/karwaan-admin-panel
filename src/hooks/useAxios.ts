@@ -2,8 +2,8 @@ import axios from "axios"
 
 export const useAxios = (API: string, payload?: any, token?: string|null) => {
     const axiosInstance = axios.create({
-        baseURL: "https://api.karwaanfilms.com/api/v1"
-        // baseURL: "http://localhost:5000/api/v1"
+        // baseURL: "https://api.karwaanfilms.com/api/v1"
+        baseURL: "http://localhost:5000/api/v1"
     });
 
     const getCall = async () => {
