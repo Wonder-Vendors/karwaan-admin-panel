@@ -11,7 +11,7 @@ const useBucket = () => {
             try{
             const compressedFile = await imageCompression(file, { maxSizeMB: 10, maxWidthOrHeight: 1920, useWebWorker: true })
             // get signed url from bucket
-            const signedUrl = (await axios.get("http://localhost:5000/api/v1/admin/getS3")).data.url
+            const signedUrl = (await axios.get("https://api.karwaanfilms.com/api/v1/admin/getS3")).data.url
             await axios.put(signedUrl, compressedFile, { headers: { 'Content-Type': 'multipart/form-data', 'x-amz-acl': 'public-read' } })
             return signedUrl.split("?")[0]
             }
