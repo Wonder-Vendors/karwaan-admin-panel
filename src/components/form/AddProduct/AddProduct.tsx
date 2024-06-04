@@ -9,14 +9,14 @@ import React, { useEffect, useState } from 'react'
 import { BsXLg } from "react-icons/bs";
 import { useProduct } from '@/hooks/useProducts';
 import { locallyStoredVariables } from '@/constants/locallyStoredVariables';
-import Image from 'next/image';
 import toast from 'react-hot-toast';
-import imageCompression from 'browser-image-compression';
 import { useRouter } from 'next/navigation';
+import useBucket from '@/hooks/useBucket';
 
 
 const AddProduct = () => {
     const router = useRouter()
+    const {getUrl} = useBucket() 
     const formdata = new FormData();
     const [tag, setTag] = useState('');
     // async function handleImageUpload(f:File) {
@@ -45,8 +45,8 @@ const AddProduct = () => {
     if(typeof(window) !== "undefined"){
         var userID=user._id;
     }
-    var [payload, setPayload] = useState<{ file: any, name: string, price: number | null, tags: string[], description: string, userId: string | null }>({
-        file: null,
+    var [payload, setPayload] = useState<{ url: string, name: string, price: number | null, tags: string[], description: string, userId: string | null }>({
+        url:"",
         name: '',
         price: null,
         tags: [],
@@ -66,27 +66,25 @@ const AddProduct = () => {
         const files = e.target.files;
         if(files && files.length > 0){
             // const result = await handleImageUpload(files[0])
-            setPayload({...payload, file: files[0]});
+            const url = await getUrl(files[0]);
+            setPayload({...payload, url: url});
+            
         }
     };
     
-    formdata.append('file', payload.file);
 
+    formdata.append("url",payload.url)
     const [imageUrl, setImageUrl] = useState<string | null>(null);
 
     useEffect(() => {
         // console.log("@@kk",payload.file)
-        if (payload.file) {
-            const imageUrl = URL.createObjectURL(payload.file);
+        if (payload.url) {
+            const imageUrl = payload.url
             setImageUrl(imageUrl);
+            // formdata.append("url", payload.url);
         }
-        return () => {
-            if (imageUrl) {
-                URL.revokeObjectURL(imageUrl);
-            }
-        };
         
-    }, [payload.file]);
+    }, [payload.url]);
 
     const {addProduct} = useProduct({
         formdata: formdata,
@@ -97,7 +95,7 @@ const AddProduct = () => {
     return (
         <div id={styles.container}>
             <Form onSubmit={addProduct}>
-                {imageUrl ? <Image src={imageUrl} alt="Error loading image" height={0} width={0} style={{ width: '100%', height: '500px', objectFit: 'contain'}}/> : null}
+                {imageUrl ? <img src={imageUrl} alt="Error loading image" height={0} width={0} style={{ width: '100%', height: '500px', objectFit: 'contain'}}/> : null}
                 <Input type='file' text='Upload a media' onChange={handleFileChange} name='file' />
                 <Input type='text' text='Enter the name of the product' onChange={(e) => { setPayload({ ...payload, name: e.target.value }) }} name='name' />
                 <Input type='number' text='Enter the price of the product' onChange={(e) => { setPayload({ ...payload, price: parseInt(e.target.value) }) }} name='price' />

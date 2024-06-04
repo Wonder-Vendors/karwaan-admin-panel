@@ -26,7 +26,6 @@ export const useProduct = (payload: Params) => {
         
         try {
             const {token} = locallyStoredVariables();
-            // console.log("@@",payload.formdata?.get("file")?.size / 1024 / 1024)
             const {postCall} = useAxios('/admin/create-product', payload.formdata, token);
             const response = await postCall();
             
