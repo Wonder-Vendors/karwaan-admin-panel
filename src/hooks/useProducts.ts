@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { locallyStoredVariables } from "@/constants/locallyStoredVariables";
 import { useState } from "react";
 type payloadType = {
-    file: any,
+    url: string,
     name: string,
     price: any,
     tags: string[],

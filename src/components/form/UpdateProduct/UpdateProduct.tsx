@@ -8,8 +8,8 @@ import React, { useEffect, useState, FC } from 'react'
 import { BsXLg } from "react-icons/bs";
 import { useProduct } from '@/hooks/useProducts';
 import { locallyStoredVariables } from '@/constants/locallyStoredVariables';
-import Image from 'next/image';
 import toast from 'react-hot-toast';
+import useBucket from '@/hooks/useBucket';
 
 interface ProductIdProps {
     productId: string | string[];
@@ -18,11 +18,11 @@ interface ProductIdProps {
 const UpdateProduct: FC<ProductIdProps> = ({ productId }) => {
     const formdata = new FormData();
     const [tag, setTag] = useState('');
-    
+    const {getUrl} = useBucket()
 
     const { user } = locallyStoredVariables(); 
     type payloadType = {
-        file: any,
+        url: string,
         name: string,
         price: any,
         tags: string[],
@@ -30,7 +30,7 @@ const UpdateProduct: FC<ProductIdProps> = ({ productId }) => {
         userId: string | null
     }
     const [payload, setPayload] = useState<payloadType>({
-        file: null,
+        url: "",
         name: "",
         price: "",
         tags: [],
@@ -46,7 +46,7 @@ const UpdateProduct: FC<ProductIdProps> = ({ productId }) => {
         (async () => {
             const data = await handleGetProduct();
             setPayload({
-                file: data?.file || null,
+                url: data?.url || "",
                 name: data?.name || "",
                 price: data?.price || "",
                 tags: data?.tags || [],
@@ -54,32 +54,30 @@ const UpdateProduct: FC<ProductIdProps> = ({ productId }) => {
                 userId: user?._id || null,
             }
             )
-            setImageFromDb(data?.url|| null);
+            setImageFromDb(data?.url|| "");
 
         })();
     }, [productId])
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
         if(files && files.length > 0){
-            setPayload({...payload, file: files[0]});
+            const url = await getUrl(files[0]);
+            setPayload({...payload, url: url});
         }
     };
 
-
     useEffect(() => {
-        if (payload.file) {
-            const imageUrl = URL.createObjectURL(payload.file);
+        // console.log("@@kk",payload.file)
+        if (payload.url) {
+            const imageUrl = payload.url
             setImageUrl(imageUrl);
+            // formdata.append("url", payload.url);
         }
-        return () => {
-            if (imageUrl) {
-                URL.revokeObjectURL(imageUrl);
-            }
-        };
-    }, [payload.file]);
+        
+    }, [payload.url]);
 
-    formdata.append('file', payload.file);
+    formdata.append('url', payload.url);
     formdata.append('name', payload.name);
     formdata.append('price', `${payload.price}`);
     payload?.tags?.map((tag) => {
@@ -97,7 +95,7 @@ const UpdateProduct: FC<ProductIdProps> = ({ productId }) => {
         <div id={styles.container}>
             {payload &&
                 <Form onSubmit={updateProduct}>
-                    {imageUrl ? <Image src={imageUrl} alt="Error loading image" height={0} width={0} style={{ width: '100%', height: '500px', objectFit: 'contain' }} /> : null}
+                    {imageUrl ? <img src={imageUrl} alt="Error loading image" height={0} width={0} style={{ width: '100%', height: '500px', objectFit: 'contain' }} /> : null}
                     {(!imageUrl &&imageFromDb) ? <img src={imageFromDb} alt="Error loading image" height={0} width={0} style={{ width: '100%', height: '500px', objectFit: 'contain' }} /> : null}
                     <Input type='file' text='Upload a media' onChange={handleFileChange} name='file' />
                     <Input type='text' text='Update the name of the product' onChange={(e) => { setPayload({ ...payload, name: e.target.value }) }} name='name' value={payload.name} />
