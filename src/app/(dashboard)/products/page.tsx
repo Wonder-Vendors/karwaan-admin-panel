@@ -76,7 +76,7 @@ const page = () => {
                 transform: "translate(-50%,-50%)",
               }}
             >
-              no item in cart
+              no products added
             </div>
           )
         ) : (
